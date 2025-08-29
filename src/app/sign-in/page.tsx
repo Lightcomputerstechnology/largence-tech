@@ -1,10 +1,10 @@
-use client';
+'use client';
 import { useState } from "react";
 import { createClient } from "@/lib/supabaseClient";
 
 export default function SignIn() {
   const supabase = createClient();
-  const [email, setEmail] = useState(''); 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -27,5 +27,4 @@ export default function SignIn() {
       <a className="text-sm" href="/sign-up">Create account</a>
     </div>
   );
-                          }
-        
+}
