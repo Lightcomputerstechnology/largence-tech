@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.3.0",
   "type": "module",
-  "engines": { "node": ">=18.18.0" },
+  "engines": { "node": "18.20.3" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
