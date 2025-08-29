@@ -15,7 +15,7 @@ function monthWindow() {
 export async function POST(req: Request) {
   const supa = createServerSupabase();
   const { data: { user } } = await supa.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return NextResponse.redirect("/sign-in", { status: 303 });
 
   // Ensure profile exists
   const { data: profile } = await supabaseAdmin
@@ -66,8 +66,7 @@ export async function POST(req: Request) {
 
   if (insertError) return NextResponse.json({ error: "Create failed" }, { status: 500 });
 
-  // (Optional) redirect pattern:
-  // return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/app/editor?id=${created.id}`, 303);
-
-  return NextResponse.json({ ok: true, id: created.id });
+  const base = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const url = `${base}/app/editor?id=${created.id}`;
+  return NextResponse.redirect(url, { status: 303 });
 }
