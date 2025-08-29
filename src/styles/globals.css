@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --primary:#E11900; --primary-foreground:#fff; --ring:#FDE8E5; }
+a { color: var(--primary); }
+a:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
