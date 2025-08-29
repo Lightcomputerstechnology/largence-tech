@@ -8,8 +8,19 @@ export default async function AppHome() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Welcome{user?.email ? `, ${user.email}` : ""}</h1>
-      <p className="text-neutral-700">This is your app area. You’re logged in via Supabase Auth.</p>
+      <h1 className="text-2xl font-semibold">Create a new document</h1>
+      <div className="grid gap-4 md:grid-cols-3">
+        {["NDA", "Service Agreement", "Contract", "IP Assignment"].map((t) => (
+          <a
+            key={t}
+            href={`/app/prompt?template=${encodeURIComponent(t)}`}
+            className="rounded-xl border p-4 hover:border-[var(--primary)] transition"
+          >
+            <div className="font-medium">{t}</div>
+            <div className="text-sm text-neutral-600">Start from a guided draft</div>
+          </a>
+        ))}
+      </div>
     </div>
   );
-      }
+}
