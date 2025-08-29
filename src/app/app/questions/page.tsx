@@ -13,7 +13,6 @@ export default function Questions() {
         <input className="w-full rounded-xl border px-3 py-2" name="jurisdiction" placeholder="Jurisdiction (e.g., England & Wales)" />
         <input className="w-full rounded-xl border px-3 py-2" name="effective_date" placeholder="Effective date" />
 
-        {/* For MVP we’ll pack the form fields into a simple content string */}
         <input type="hidden" name="content" value="Draft will include party names, jurisdiction, and effective date." />
 
         <div className="flex gap-3">
@@ -25,4 +24,4 @@ export default function Questions() {
       </form>
     </div>
   );
-}
+        }
