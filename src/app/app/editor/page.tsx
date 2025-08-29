@@ -1,28 +1,48 @@
 import { createServerSupabase } from "@/lib/supabaseServer";
 import { redirect } from "next/navigation";
 
-export default async function EditorPage() {
-  const supabase = createServerSupabase();
-  const { data: { user } } = await supabase.auth.getUser();
+export default async function EditorPage({
+  searchParams,
+}: {
+  searchParams: { id?: string };
+}) {
+  const supa = createServerSupabase();
+  const { data: { user } } = await supa.auth.getUser();
   if (!user) redirect("/sign-in");
+
+  let draft: any = null;
+  if (searchParams?.id) {
+    const { data } = await supa
+      .from("drafts")
+      .select("*")
+      .eq("id", searchParams.id)
+      .single();
+    draft = data || null;
+  }
 
   return (
     <div className="grid md:grid-cols-[1fr_320px] gap-6">
       <div className="rounded-xl border p-5 min-h-[480px]">
-        <h2 className="font-semibold mb-4">Draft preview</h2>
+        <h2 className="font-semibold mb-4">{draft?.title || "Draft preview"}</h2>
         <article className="prose max-w-none">
-          <h3 className="text-xl font-semibold">Non-Disclosure Agreement</h3>
-          <p className="text-neutral-800">
-            This Agreement (“Agreement”) is made between <em>[Your Name/Company]</em> and <em>[Counterparty]</em>,
-            effective <em>[Date]</em>. The Parties agree as follows:
-          </p>
-          <ol className="list-decimal pl-6 space-y-2">
-            <li><strong>Confidential Information.</strong> …</li>
-            <li><strong>Permitted Use.</strong> …</li>
-            <li><strong>Term & Termination.</strong> …</li>
-            <li><strong>Governing Law.</strong> <em>[Jurisdiction]</em>.</li>
-          </ol>
-          <p className="text-neutral-700 text-sm mt-6">Formatting is kept clean and tidy. (Final wording will be generated.)</p>
+          {draft?.content ? (
+            <p className="text-neutral-800 whitespace-pre-wrap">{draft.content}</p>
+          ) : (
+            <>
+              <h3 className="text-xl font-semibold">Non-Disclosure Agreement</h3>
+              <p className="text-neutral-800">
+                This Agreement (“Agreement”) is made between <em>[Your Name/Company]</em> and <em>[Counterparty]</em>,
+                effective <em>[Date]</em>. The Parties agree as follows:
+              </p>
+              <ol className="list-decimal pl-6 space-y-2">
+                <li><strong>Confidential Information.</strong> …</li>
+                <li><strong>Permitted Use.</strong> …</li>
+                <li><strong>Term & Termination.</strong> …</li>
+                <li><strong>Governing Law.</strong> <em>[Jurisdiction]</em>.</li>
+              </ol>
+              <p className="text-neutral-700 text-sm mt-6">Formatting is kept clean and tidy. (Final wording will be generated.)</p>
+            </>
+          )}
         </article>
       </div>
 
@@ -46,4 +66,4 @@ export default async function EditorPage() {
       </aside>
     </div>
   );
-          }
+              }
