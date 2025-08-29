@@ -12,7 +12,7 @@ export default function Home() {
         </div>
         <p className="text-sm text-neutral-600">3 free documents each month. No credit card required.</p>
       </div>
-      <div className="rounded-xl border p-6">UI preview placeholder</div>
+      <div className="rounded-xl border p-6">UI preview placeholder (replace with real screenshots)</div>
     </section>
   );
 }
