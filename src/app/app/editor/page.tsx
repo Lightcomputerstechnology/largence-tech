@@ -1,36 +1,26 @@
 import { createServerSupabase } from "@/lib/supabaseServer";
 import { redirect } from "next/navigation";
 import UsageBadge from "@/components/UsageBadge";
+import PremiumNotice from "@/components/PremiumNotice"; // <-- add this
 
-export default async function EditorPage({
-  searchParams,
-}: {
-  searchParams: { id?: string };
-}) {
+export default async function EditorPage({ searchParams }: { searchParams: { id?: string } }) {
   const supa = createServerSupabase();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) redirect("/sign-in");
 
   let draft: any = null;
   if (searchParams?.id) {
-    const { data } = await supa
-      .from("drafts")
-      .select("*")
-      .eq("id", searchParams.id)
-      .single();
+    const { data } = await supa.from("drafts").select("*").eq("id", searchParams.id).single();
     draft = data || null;
   }
 
   return (
     <div className="grid md:grid-cols-[1fr_320px] gap-6">
       <div className="rounded-xl border p-5 min-h-[480px]">
-        {/* Top bar: back link + usage */}
         <div className="flex items-center justify-between mb-3">
           <a href="/app" className="text-sm underline">← Back to app</a>
           <UsageBadge />
         </div>
-
-        {/* Title */}
         <h2 className="font-semibold mb-4">{draft?.title || "Draft preview"}</h2>
 
         <article className="prose max-w-none">
@@ -67,26 +57,13 @@ export default async function EditorPage({
         </div>
 
         <div className="flex gap-3">
-          <a
-            href={`/api/export/pdf?id=${draft?.id ?? ""}`}
-            className="rounded-xl bg-[var(--primary)] text-white px-4 py-2"
-            target="_blank"
-          >
-            Export PDF
-          </a>
-          <a
-            href={`/api/export/docx?id=${draft?.id ?? ""}`}
-            className="rounded-xl border px-4 py-2"
-            target="_blank"
-          >
-            Export DOCX
-          </a>
+          <a href={`/api/export/pdf?id=${draft?.id ?? ""}`} className="rounded-xl bg-[var(--primary)] text-white px-4 py-2" target="_blank">Export PDF</a>
+          <a href={`/api/export/docx?id=${draft?.id ?? ""}`} className="rounded-xl border px-4 py-2" target="_blank">Export DOCX</a>
         </div>
 
-        <div className="rounded-lg bg-[var(--ring)]/60 p-3 text-sm text-neutral-700">
-          <strong>Premium (later):</strong> AI suggestions after the draft (prioritized from high → low).
-        </div>
+        {/* Premium notice shows only for non-Pro users */}
+        <PremiumNotice />
       </aside>
     </div>
   );
-        }
+                }
