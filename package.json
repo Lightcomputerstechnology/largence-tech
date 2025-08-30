@@ -22,6 +22,7 @@
     "postcss": "8.4.41",
     "@supabase/ssr": "0.5.0",
     "@supabase/supabase-js": "2.45.4",
+    "stripe": "16.5.0",
     "dayjs": "1.11.11"
   },
   "devDependencies": {
