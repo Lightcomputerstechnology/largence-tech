@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createServerSupabase } from "@/lib/supabaseServer";
 
 export async function POST() {
@@ -8,11 +8,10 @@ export async function POST() {
   if (!user) return NextResponse.redirect("/sign-in", { status: 303 });
 
   const priceId = process.env.STRIPE_PRICE_PAYG;
-  if (!priceId) {
-    return NextResponse.json({ error: "STRIPE_PRICE_PAYG not configured" }, { status: 500 });
-  }
+  if (!priceId) return NextResponse.json({ error: "STRIPE_PRICE_PAYG not configured" }, { status: 500 });
 
   const origin = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const stripe = getStripe();
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -25,4 +24,4 @@ export async function POST() {
   });
 
   return NextResponse.redirect(session.url!, { status: 303 });
-      }
+}
