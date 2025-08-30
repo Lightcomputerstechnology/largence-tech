@@ -63,8 +63,20 @@ export default async function EditorPage({
         </div>
 
         <div className="flex gap-3">
-          <button className="rounded-xl bg-[var(--primary)] text-white px-4 py-2">Export PDF</button>
-          <button className="rounded-xl border px-4 py-2">Export DOCX</button>
+          <a
+            href={`/api/export/pdf?id=${draft?.id ?? ""}`}
+            className="rounded-xl bg-[var(--primary)] text-white px-4 py-2"
+            target="_blank"
+          >
+            Export PDF
+          </a>
+          <a
+            href={`/api/export/docx?id=${draft?.id ?? ""}`}
+            className="rounded-xl border px-4 py-2"
+            target="_blank"
+          >
+            Export DOCX
+          </a>
         </div>
 
         <div className="rounded-lg bg-[var(--ring)]/60 p-3 text-sm text-neutral-700">
@@ -73,4 +85,4 @@ export default async function EditorPage({
       </aside>
     </div>
   );
-      }
+          }
