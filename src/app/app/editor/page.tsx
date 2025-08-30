@@ -24,10 +24,14 @@ export default async function EditorPage({
   return (
     <div className="grid md:grid-cols-[1fr_320px] gap-6">
       <div className="rounded-xl border p-5 min-h-[480px]">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold">{draft?.title || "Draft preview"}</h2>
+        {/* Top bar: back link + usage */}
+        <div className="flex items-center justify-between mb-3">
+          <a href="/app" className="text-sm underline">← Back to app</a>
           <UsageBadge />
         </div>
+
+        {/* Title */}
+        <h2 className="font-semibold mb-4">{draft?.title || "Draft preview"}</h2>
 
         <article className="prose max-w-none">
           {draft?.content ? (
@@ -85,4 +89,4 @@ export default async function EditorPage({
       </aside>
     </div>
   );
-          }
+        }
