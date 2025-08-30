@@ -1,5 +1,6 @@
 import { createServerSupabase } from "@/lib/supabaseServer";
 import { redirect } from "next/navigation";
+import UsageBadge from "@/components/UsageBadge";
 
 export default async function AppHome() {
   const supabase = createServerSupabase();
@@ -8,7 +9,11 @@ export default async function AppHome() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Create a new document</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Create a new document</h1>
+        <UsageBadge />
+      </div>
+
       <div className="grid gap-4 md:grid-cols-3">
         {["NDA", "Service Agreement", "Contract", "IP Assignment"].map((t) => (
           <a
