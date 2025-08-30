@@ -1,5 +1,6 @@
 import { createServerSupabase } from "@/lib/supabaseServer";
 import { redirect } from "next/navigation";
+import UsageBadge from "@/components/UsageBadge";
 
 export default async function EditorPage({
   searchParams,
@@ -23,7 +24,11 @@ export default async function EditorPage({
   return (
     <div className="grid md:grid-cols-[1fr_320px] gap-6">
       <div className="rounded-xl border p-5 min-h-[480px]">
-        <h2 className="font-semibold mb-4">{draft?.title || "Draft preview"}</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-semibold">{draft?.title || "Draft preview"}</h2>
+          <UsageBadge />
+        </div>
+
         <article className="prose max-w-none">
           {draft?.content ? (
             <p className="text-neutral-800 whitespace-pre-wrap">{draft.content}</p>
@@ -40,7 +45,9 @@ export default async function EditorPage({
                 <li><strong>Term & Termination.</strong> …</li>
                 <li><strong>Governing Law.</strong> <em>[Jurisdiction]</em>.</li>
               </ol>
-              <p className="text-neutral-700 text-sm mt-6">Formatting is kept clean and tidy. (Final wording will be generated.)</p>
+              <p className="text-neutral-700 text-sm mt-6">
+                Formatting is kept clean and tidy. (Final wording will be generated.)
+              </p>
             </>
           )}
         </article>
@@ -66,4 +73,4 @@ export default async function EditorPage({
       </aside>
     </div>
   );
-              }
+      }
