@@ -1,0 +1,7 @@
+root{
+  /* Largence default red */
+  --primary: #e11d48;              /* hex for CSS usage */
+  --primary-rgb: 225 29 72;        /* rgb for Tailwind alpha */
+  --ring: #f1f5f9;                 /* soft card bg */
+  --ring-rgb: 241 245 249;
+}
