@@ -23,7 +23,8 @@
     "@supabase/ssr": "0.5.0",
     "@supabase/supabase-js": "2.45.4",
     "stripe": "16.5.0",
-    "dayjs": "1.11.11"
+    "dayjs": "1.11.11",
+    "react-hot-toast": "2.4.1"
   },
   "devDependencies": {
     "typescript": "5.5.4",
