@@ -26,11 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
         <footer className="border-t mt-16">
           <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-neutral-600">
-            © {new Date().getFullYear()} LARGENCE ·{" "}
+            © {new Date().getFullYear()} <span className="text-brand font-semibold">LARGENCE</span> ·{" "}
             <a href="#">Privacy</a> · <a href="#">Terms</a>
           </div>
         </footer>
       </body>
     </html>
   );
-                                        }
+    }
